@@ -35,11 +35,8 @@ dtj
 
 ## Installation
 
-To use DTJ, you'll need Python installed on your system. Clone this repository or download the `DTJ.py` script.
-
 ```bash
-git clone https://github.com/adriangalilea/dtj.git
-cd DTJ
+pip install dtj
 ```
 
 ## Usage
