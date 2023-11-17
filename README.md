@@ -1,8 +1,8 @@
 
-# DTJ (Directory to JSON)
+# DTJ (Directory-to-JSON)
 
 ## Overview
-DTJ (Directory to JSON) is a Python command-line tool, particularly useful for quickly generating and sharing representations of directory structures in a token-efficient manner, making it ideal for interactions with language models like ChatGPT.
+DTJ (Directory-to-JSON) is a Python command-line tool, particularly useful for quickly generating and sharing representations of directory structures and it's content in a structured and token-efficient manner, making it ideal for interactions with language models like ChatGPT.
 
 ## Example output
 ```bash
@@ -44,7 +44,7 @@ pip install dtj
 Run DTJ from the command line with the following options:
 
 ```bash
-python dtj.py <target-directory> [options]
+dtj <target-directory> [options]
 ```
 
 If no target directory is specified, DTJ will default to the current working directory.
@@ -60,7 +60,7 @@ Options:
 ## Example
 
 ```bash
-python DTJ.py myfolder -i py html -o output.json -r
+dtj myfolder -i py html -o output.json -r
 ```
 
 This command will parse all `.py` and `.html` files in `myfolder` recursively and save the JSON output to `output.json`.
