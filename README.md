@@ -10,20 +10,28 @@ dtj
 ```
 
 ```json
-[
-    {
-        "filename": "main.py",
-        "content": "# Main application file\nimport app\n\napp.run()"
-    },
-    {
-        "filename": "app.py",
-        "content": "# App module\n\ndef run():\n    print('Running the app')"
-    },
-    {
-        "filename": "utils.py",
-        "content": "# Utility functions\n\ndef helper():\n    return 'Helper function'"
-    }
-]
+{
+    "directory": "my_project",
+    "contents": [
+        {
+            "filename": "main.py",
+            "content": "# Main application file\nimport app\n\napp.run()"
+        },
+        {
+            "filename": "app.py",
+            "content": "# App module\n\ndef run():\n    print('Running the app')"
+        },
+        {
+            "directory": "utils",
+            "contents": [
+                {
+                    "filename": "helper.py",
+                    "content": "# Utility functions\n\ndef helper():\n    return 'Helper function'"
+                }
+            ]
+        }
+    ]
+}
 ```
 
 
