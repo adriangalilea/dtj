@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dtj',
-    version='0.1.4',
+    version='0.1.5',
     packages=find_packages(),
     include_package_data=True,
     description='A tool to convert directory contents to JSON',

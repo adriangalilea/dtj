@@ -8,14 +8,12 @@ import fnmatch
 def list_files(directory, include_patterns, exclude_patterns, recursive):
     """Recursively list files in the directory with specified filename glob patterns."""
     file_structure = {}
-    base_dir_name = os.path.basename(directory.rstrip(os.sep)) or '.'
 
     for root, dirs, files in os.walk(directory):
         if not recursive:
             dirs[:] = []
 
         relative_path = os.path.relpath(root, directory)
-        relative_path = relative_path if relative_path != '.' else base_dir_name
         file_list = []
 
         for file in files:
@@ -23,10 +21,12 @@ def list_files(directory, include_patterns, exclude_patterns, recursive):
                 continue
             if exclude_patterns and any(fnmatch.fnmatch(file, pat) for pat in exclude_patterns):
                 continue
-
             file_list.append(os.path.join(root, file))
 
         if file_list:
+            if relative_path == '.':
+                relative_path = os.path.basename(directory)
+
             file_structure[relative_path] = file_list
 
     return file_structure
