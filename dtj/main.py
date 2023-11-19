@@ -42,24 +42,26 @@ def process_single_file(file_path):
         return None
 
 def read_file_contents(file_structure, directory):
-    output = {"directory": os.path.basename(directory), "contents": []}
+    output = {os.path.basename(directory): {}}
     
     for path, files in file_structure.items():
-        if path == os.path.basename(directory):
-            dir_contents = output["contents"]
-        else:
-            dir_contents = []
-            sub_dir = {"directory": path, "contents": dir_contents}
-            output["contents"].append(sub_dir)
+        current_dir = output[os.path.basename(directory)]
 
-        for file_info in files:
+        for file_path in files:
             try:
-                with open(file_info, 'r') as f:
+                with open(file_path, 'r') as f:
                     content = f.read()
-                file_dict = {"filename": os.path.basename(file_info), "content": content}
-                dir_contents.append(file_dict)
+                nested_path = os.path.relpath(file_path, directory).replace(os.sep, '/')
+                dirs = nested_path.split('/')[:-1]
+                file_name = os.path.basename(file_path)
+
+                target_dir = current_dir
+                for d in dirs:
+                    target_dir = target_dir.setdefault(d, {})
+
+                target_dir[file_name] = content
             except Exception as e:
-                rich_print(f"[bold yellow]Warning:[/bold yellow] Could not read file [bold cyan]{file_info}[/bold cyan]: [bold red]{e}[/bold red]")
+                rich_print(f"[bold yellow]Warning:[/bold yellow] Could not read file [bold cyan]{file_path}[/bold cyan]: [bold red]{e}[/bold red]")
 
     return output
 

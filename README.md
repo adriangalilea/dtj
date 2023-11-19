@@ -11,26 +11,14 @@ dtj
 
 ```json
 {
-    "directory": "my_project",
-    "contents": [
-        {
-            "filename": "main.py",
-            "content": "# Main application file\nimport app\n\napp.run()"
-        },
-        {
-            "filename": "app.py",
-            "content": "# App module\n\ndef run():\n    print('Running the app')"
-        },
-        {
-            "directory": "utils",
-            "contents": [
-                {
-                    "filename": "helper.py",
-                    "content": "# Utility functions\n\ndef helper():\n    return 'Helper function'"
-                }
-            ]
-        }
-    ]
+  "my_project": {
+    "__init__.py": "",
+    "main.py": "# Main application file\nimport app\n\napp.run()",
+    "app.py": "# App module\n\ndef run():\n    print('Running the app')",
+    "utils": {
+      "helper.py": "# Utility functions\n\ndef helper():\n    return 'Helper function'"
+    }
+  }
 }
 ```
 
@@ -39,6 +27,9 @@ dtj
 - Include or exclude files using patterns (supports fnmatch style, e.g., `*.py`, `data*`).
 - Recursive directory parsing.
 - Options for output: printing to console, saving to a file, or copying to the clipboard.
+
+### Updates
+- new JSON format **reduces token usage ~30%**
 
 ## Installation
 
