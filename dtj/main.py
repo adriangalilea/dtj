@@ -67,22 +67,20 @@ def read_file_contents(file_structure, directory):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a JSON file from a directory's contents.")
+    parser = argparse.ArgumentParser(description="Process and print the contents of a directory or a single file in JSON format.")
     parser.add_argument(
         'target', 
         nargs='?', 
         default=os.getcwd(), 
         type=str, 
-        help="Target directory. Defaults to the current directory if not specified."
+        help="Target directory. Defaults to the current directory if not specified. Outputs to the terminal unless otherwise specified."
     )
-    parser.add_argument('-t', '--target-file', type=str, help="Target a single file. This option is mutually exclusive with other directory-based options.")
-    parser.add_argument('-i', '--include', type=str, nargs='+', help="Patterns to include files. Enclose patterns in quotes to avoid shell expansion (supports fnmatch style, e.g., '*.py', 'data*', '?file.txt').")
-    parser.add_argument('-e', '--exclude', type=str, nargs='+', help="Patterns to exclude files. Enclose patterns in quotes to avoid shell expansion (supports fnmatch style, e.g., '*.xml', 'temp*').")
-    parser.add_argument('-o', '--output-file', type=str, default='output.json', help="Name of the output JSON file.")
+    parser.add_argument('-t', '--target-file', type=str, help="Target a single file. This option outputs the content of the file in JSON format to the terminal.")
+    parser.add_argument('-i', '--include', type=str, nargs='+', help="Include patterns for files. Use fnmatch-style patterns like '*.py', 'data*', '?file.txt'.")
+    parser.add_argument('-e', '--exclude', type=str, nargs='+', help="Exclude patterns for files. Use fnmatch-style patterns like '*.xml', 'temp*'.")
+    parser.add_argument('-o', '--output-file', type=str, help="Specify an output file for the JSON data. If not provided, data will be printed to the terminal.")
     parser.add_argument('-r', '--recursive', action='store_true', help="Enable recursive search in directories. Not applicable with --target-file.")
-    parser.add_argument('-p', '--print', action='store_true', help="Print the output to the console using rich formatting.")
-    parser.add_argument('-c', '--clipboard', action='store_true', help="Copy the output to the clipboard.")
-
+    parser.add_argument('-c', '--clipboard', action='store_true', help="Copy the JSON output to the clipboard.")
 
     args = parser.parse_args()
 
@@ -92,21 +90,21 @@ def main():
             return
     else:
         if args.include and args.exclude:
-            rich_print("[bold red]Error:[/bold red] -i/--include and -e/--exclude cannot be used together. Please specify only one.")
+            print("[Error] -i/--include and -e/--exclude cannot be used together. Please specify only one.")
             return
         file_structure = list_files(args.target, args.include, args.exclude, args.recursive)
         data = read_file_contents(file_structure, args.target)
 
     json_data = json.dumps(data, indent=4)
 
-    if args.print:
-        rich_print(json_data)
-    elif args.clipboard:
+    if args.clipboard:
         pyperclip.copy(json_data)
-        rich_print("[bold green]Output has been copied to the clipboard.[/bold green]")
-    else:
+        print("[Output has been copied to the clipboard.]")
+    elif args.output_file:
         with open(args.output_file, 'w') as file:
             file.write(json_data)
+    else:
+        print(json_data)
 
 if __name__ == "__main__":
     main()
