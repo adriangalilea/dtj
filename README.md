@@ -57,14 +57,21 @@ Options:
 - `-c` or `--clipboard`: Copy the output to the clipboard.
 
 ## Example
+simple
+```bash
+dtj
+```
 
+Generates an output.json with the content
+
+advanced
 ```bash
 dtj myfolder -i '*.py' '*.html' -o output.json -r
 ```
 
 This command will parse all `.py` and `.html` files in `myfolder` recursively and save the JSON output to `output.json`.
 
-## Using it alongside (gptwc)[https://github.com/lwneal/gptwc]
+## Using it alongside [gptwc](https://github.com/lwneal/gptwc)
 
 ```bash
 dtj | gptwc
