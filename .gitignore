@@ -78,3 +78,6 @@ venv/
 ENV/
 env/
 .DS_Store
+
+# idea
+.idea/
